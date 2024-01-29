@@ -19,11 +19,11 @@ class AppColumn extends StatelessWidget {
     return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BigText(text: text, size: Dimensions.font26),
+                BigText(text: text, size: Dimensions.font26-1),
                 SizedBox(height: Dimensions.height10,),
                 Row(
                   children: [
-                    Wrap(children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 15))
+                    Wrap(children: List.generate(5, (index) => Icon(Icons.star, color: AppColors.mainColor, size: 14))
                     ),
                     SizedBox(width: 10,),
                     SmallText(text: "4.5"),
