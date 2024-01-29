@@ -1,25 +1,41 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:foodie/controllers/recommended_product_controller.dart';
+import 'package:foodie/routes/route_helper.dart';
+import 'package:foodie/utils/app_constants.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/app_icon.dart';
 import 'package:foodie/widgets/big_text.dart';
 import 'package:foodie/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
+
+import 'package:flutter/material.dart';
 
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({super.key});
+  final int pageId;
+  const RecommendedFoodDetail({
+    Key? key,
+    required this.pageId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.clear),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.getInitial());
+                  },
+                  child: AppIcon(icon: Icons.clear)),
                 AppIcon(icon: Icons.shopping_cart_outlined),
               ],
             ),
@@ -35,13 +51,13 @@ class RecommendedFoodDetail extends StatelessWidget {
                 ),                
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
-                child: Center(child: BigText(text: "Chinese Side", size: Dimensions.font26,)),
+                child: Center(child: BigText(text: product.name!, size: Dimensions.font26,)),
               )),
             pinned: true,
             backgroundColor: AppColors.yellowColor,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset("assets/image/food0.png",
+              background: Image.network(AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!,
               width: double.maxFinite,
               fit: BoxFit.cover),
             ),
@@ -51,7 +67,7 @@ class RecommendedFoodDetail extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
-                  child: ExpandableTextWidget(text: "The chicken is first marinated with soy sauce for 30 minutes, then pan-fried until golden brown. It's then steamed with aromatic ingredients like Sichuan peppercorn, ginger, scallion, and cooking wine for 30-40 minutes. While the chicken cools down, cucumbers are prepared and a dressing is made from the broth collected from steaming the chicken, mixed with soy sauce, rice vinegar, black vinegar, sugar, minced garlic, and sesame oil. The dish is served with the chicken and smashed cucumber sections, drizzled with the savory dressing. The result is a well-balanced and appetizing dish that's perfect for a hot day. The chicken is first marinated with soy sauce for 30 minutes, then pan-fried until golden brown. It's then steamed with aromatic ingredients like Sichuan peppercorn, ginger, scallion, and cooking wine for 30-40 minutes. While the chicken cools down, cucumbers are prepared and a dressing is made from the broth collected from steaming the chicken, mixed with soy sauce, rice vinegar, black vinegar, sugar, minced garlic, and sesame oil. The dish is served with the chicken and smashed cucumber sections, drizzled with the savory dressing. The result is a well-balanced and appetizing dish that's perfect for a hot day. The chicken is first marinated with soy sauce for 30 minutes, then pan-fried until golden brown. It's then steamed with aromatic ingredients like Sichuan peppercorn, ginger, scallion, and cooking wine for 30-40 minutes. While the chicken cools down, cucumbers are prepared and a dressing is made from the broth collected from steaming the chicken, mixed with soy sauce, rice vinegar, black vinegar, sugar, minced garlic, and sesame oil. The dish is served with the chicken and smashed cucumber sections, drizzled with the savory dressing. The result is a well-balanced and appetizing dish that's perfect for a hot day. The chicken is first marinated with soy sauce for 30 minutes, then pan-fried until golden brown. It's then steamed with aromatic ingredients like Sichuan peppercorn, ginger, scallion, and cooking wine for 30-40 minutes. While the chicken cools down, cucumbers are prepared and a dressing is made from the broth collected from steaming the chicken, mixed with soy sauce, rice vinegar, black vinegar, sugar, minced garlic, and sesame oil. The dish is served with the chicken and smashed cucumber sections, drizzled with the savory dressing. The result is a well-balanced and appetizing dish that's perfect for a hot day.""The chicken is first marinated with soy sauce for 30 minutes, then pan-fried until golden brown. It's then steamed with aromatic ingredients like Sichuan peppercorn, ginger, scallion, and cooking wine for 30-40 minutes. While the chicken cools down, cucumbers are prepared and a dressing is made from the broth collected from steaming the chicken, mixed with soy sauce, rice vinegar, black vinegar, sugar, minced garlic, and sesame oil. The dish is served with the chicken and smashed cucumber sections, drizzled with the savory dressing. The result is a well-balanced and appetizing dish that's perfect for a hot day.")),
+                  child: ExpandableTextWidget(text: product.description!)),
               ],
             ),
           ),
@@ -67,7 +83,7 @@ class RecommendedFoodDetail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             AppIcon(icon: Icons.remove, backgroundColor: AppColors.mainColor, iconColor: Colors.white,iconSize: Dimensions.iconSize24,),
-            BigText(text: "\$12.88  X  0 ", color: AppColors.mainBlackColor, size: Dimensions.font26),
+            BigText(text: "\$ ${product.price!}  X  0 ", color: AppColors.mainBlackColor, size: Dimensions.font26),
             AppIcon(icon: Icons.add, backgroundColor: AppColors.mainColor, iconColor: Colors.white,iconSize: Dimensions.iconSize24,),
           ],
           ),
@@ -101,7 +117,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: AppColors.mainColor,
               ),
-              child: BigText(text: "\$10 | Add to cart", color: Colors.white),
+              child: BigText(text: "\$ ${product.price!} | Add to cart", color: Colors.white),
             ),
           ],
         ),

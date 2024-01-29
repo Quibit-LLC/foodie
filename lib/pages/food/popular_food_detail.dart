@@ -1,18 +1,28 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:foodie/controllers/popular_product_controller.dart';
+import 'package:foodie/pages/home/main_food_page.dart';
+import 'package:foodie/routes/route_helper.dart';
+import 'package:foodie/utils/app_constants.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:foodie/utils/dimensions.dart';
 import 'package:foodie/widgets/app_column.dart';
 import 'package:foodie/widgets/app_icon.dart';
 import 'package:foodie/widgets/big_text.dart';
 import 'package:foodie/widgets/expandable_text_widget.dart';
-import 'package:foodie/widgets/icon_and_text_widget.dart';
-import 'package:foodie/widgets/small_text.dart';
+import 'package:get/get.dart';
+
+import 'package:flutter/material.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({super.key});
+  final int pageId;
+   const PopularFoodDetail({
+    Key? key,
+    required this.pageId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<PopularProductController>().popularProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -27,7 +37,7 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage("assets/image/food0.png"),
+                  image: NetworkImage(AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!),
                   ),
               ),
             ), 
@@ -40,7 +50,11 @@ class PopularFoodDetail extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            AppIcon(icon: Icons.arrow_back_ios_new),
+            GestureDetector(
+              onTap: () {
+                Get.toNamed(RouteHelper.initial);
+              },
+              child: AppIcon(icon: Icons.arrow_back_ios_new)),
              AppIcon(icon: Icons.shopping_cart_checkout_outlined),
           ],
           ),
@@ -64,7 +78,7 @@ class PopularFoodDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppColumn(text: "Chinese Side"),
+                AppColumn(text: product.name!),
                 SizedBox(height: Dimensions.height20,),
                 BigText(text: "Introduction"),
 
@@ -73,7 +87,7 @@ class PopularFoodDetail extends StatelessWidget {
                 Expanded(
                   child: SingleChildScrollView(
                   child: ExpandableTextWidget(
-                    text: "The chicken is first marinated with soy sauce for 30 minutes, then pan-fried until golden brown. It's then steamed with aromatic ingredients like Sichuan peppercorn, ginger, scallion, and cooking wine for 30-40 minutes. While the chicken cools down, cucumbers are prepared and a dressing is made from the broth collected from steaming the chicken, mixed with soy sauce, rice vinegar, black vinegar, sugar, minced garlic, and sesame oil. The dish is served with the chicken and smashed cucumber sections, drizzled with the savory dressing. The result is a well-balanced and appetizing dish that's perfect for a hot day."),
+                    text: product.description!),
                     ),
                     ),
               ],
@@ -123,7 +137,7 @@ class PopularFoodDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: AppColors.mainColor,
               ),
-              child: BigText(text: "\$10 | Add to cart", color: Colors.white),
+              child: BigText(text: "\$ ${product.price!}  | Add to cart", color: Colors.white),
             ),
           ],
         ),
