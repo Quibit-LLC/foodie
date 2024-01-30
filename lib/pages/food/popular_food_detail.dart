@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:foodie/controllers/cart_controller.dart';
 import 'package:foodie/controllers/popular_product_controller.dart';
 import 'package:foodie/pages/home/main_food_page.dart';
 import 'package:foodie/routes/route_helper.dart';
@@ -23,6 +24,7 @@ class PopularFoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var product = Get.find<PopularProductController>().popularProductList[pageId];
+    Get.find<PopularProductController>().initProduct(product ,Get.find<CartController>());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -100,7 +102,8 @@ class PopularFoodDetail extends StatelessWidget {
 
         ],
       ),
-      bottomNavigationBar: Container(
+      bottomNavigationBar: GetBuilder<PopularProductController>(builder: (popularProduct){
+        return Container(
         height: Dimensions.bottomHeightBar,
         padding: EdgeInsets.only(top: Dimensions.height20, bottom: Dimensions.height20, right: Dimensions.width20, left: Dimensions.width20),
         decoration: BoxDecoration(
@@ -122,11 +125,19 @@ class PopularFoodDetail extends StatelessWidget {
               child: Row(
                 
                 children: [
-                  Icon(Icons.remove, color: AppColors.signColor,),
+                  GestureDetector(
+                    onTap: () {
+                      popularProduct.setQuantity(false);
+                    },
+                    child: Icon(Icons.remove, color: AppColors.signColor)),
                   SizedBox(width: Dimensions.width10/2,),
-                  BigText(text: "0"),
+                  BigText(text: popularProduct.inCartItems.toString()),
                   SizedBox(width: Dimensions.width10/2,),
-                  Icon(Icons.add, color: AppColors.signColor),
+                  GestureDetector(
+                    onTap: () {
+                      popularProduct.setQuantity(true);
+                    },
+                    child: Icon(Icons.add, color: AppColors.signColor)),
                 ],
               ),
             ),
@@ -137,11 +148,16 @@ class PopularFoodDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: AppColors.mainColor,
               ),
-              child: BigText(text: "\$ ${product.price!}  | Add to cart", color: Colors.white),
+              child: GestureDetector(
+                onTap:() {
+                  popularProduct.addItem(product);
+                },
+                child: BigText(text: "\$ ${product.price!}  | Add to cart", color: Colors.white)),
             ),
           ],
         ),
-      ),
+      );
+      })
     );
   }
 }
