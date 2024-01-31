@@ -44,4 +44,8 @@ class Dimensions{
 
   // bottom height
   static double bottomHeightBar = screenHeight/7.625;
+
+  // positioned widget
+  static double sizeSeven = screenHeight/130.7142857142857;
+  static double sizeTwo = screenHeight/457.5;
 }

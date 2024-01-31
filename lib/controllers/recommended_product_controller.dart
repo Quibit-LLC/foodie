@@ -1,4 +1,3 @@
-import 'package:foodie/data/repository/popular_product_repo.dart';
 import 'package:foodie/data/repository/recommended_product_repo.dart';
 import 'package:foodie/models/products_model.dart';
 import 'package:get/get.dart';

@@ -47,14 +47,18 @@ class PopularProductController extends GetxController{
   }
 
   int checkQuantity(int quantity){
-    if(quantity + _inCartItems<0){
+    if((quantity + _inCartItems)<0){
       Get.snackbar("Item Count", "You can't reduce more!",
       backgroundColor: AppColors.mainColor,
       colorText: Colors.white,
       );
+      if(_inCartItems>0){
+        _quantity = - _inCartItems;
+        return _quantity;
+      }
       return 0;
     }
-    else if(quantity + _inCartItems<0){
+    else if((quantity + _inCartItems)>20){
        Get.snackbar("Item Count", "You can't add more!",
       backgroundColor: AppColors.mainColor,
       colorText: Colors.white,
@@ -88,12 +92,9 @@ class PopularProductController extends GetxController{
       _cart.items.forEach((key, value) {
         print("The id is "+ value.id.toString()+ ". The Quantity is "+value.quantity.toString());
       });
-    // }
-    // else{
-    //   Get.snackbar("Item Count", "You should add at least one item to the cart!",
-    //   backgroundColor: AppColors.mainColor,
-    //   colorText: Colors.white,
-    //   );
-    // }
+   
+    update();
     }
+
+  int get totalItems=>_cart.totalItems;
 }
