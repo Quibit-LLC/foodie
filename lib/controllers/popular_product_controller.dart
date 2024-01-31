@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:foodie/controllers/cart_controller.dart';
 import 'package:foodie/data/repository/popular_product_repo.dart';
+import 'package:foodie/models/cart_model.dart';
 import 'package:foodie/models/products_model.dart';
 import 'package:foodie/utils/colors.dart';
 import 'package:get/get.dart';
@@ -83,6 +84,7 @@ class PopularProductController extends GetxController{
   }
     // get from storage _inCartItems
   }
+  
    void addItem(ProductModel product){
     // if(_quantity>0){
       _cart.addItem(product, _quantity);
@@ -97,4 +99,8 @@ class PopularProductController extends GetxController{
     }
 
   int get totalItems=>_cart.totalItems;
+
+  List<CartModel> get getItems{
+    return _cart.getItems;
+  }
 }

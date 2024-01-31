@@ -82,4 +82,10 @@ class CartController extends GetxController{
     });
     return totalQuantity;
   }
+
+  List<CartModel> get getItems{
+   return _items.entries.map((e) {
+      return e.value; // returns an iterable that needs to be transformed into a list
+    }).toList();
+  }
 }

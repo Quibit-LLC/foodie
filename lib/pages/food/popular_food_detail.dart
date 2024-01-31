@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:foodie/controllers/cart_controller.dart';
 import 'package:foodie/controllers/popular_product_controller.dart';
+import 'package:foodie/pages/cart/cart_page.dart';
 import 'package:foodie/routes/route_helper.dart';
 import 'package:foodie/utils/app_constants.dart';
 import 'package:foodie/utils/colors.dart';
@@ -64,7 +65,11 @@ class PopularFoodDetail extends StatelessWidget {
                  Positioned(
                   right: 0,
                   top: 0,
-                  child: AppIcon(icon: Icons.circle, size: 20, iconColor: Colors.transparent, backgroundColor: AppColors.mainColor,)):
+                  child: GestureDetector(
+                    onTap: () {
+                      Get.to(()=>CartPage());
+                    },
+                    child: AppIcon(icon: Icons.circle, size: 20, iconColor: Colors.transparent, backgroundColor: AppColors.mainColor,))):
                   Container(),
                   Get.find<PopularProductController>().totalItems>=1?
                  Positioned(

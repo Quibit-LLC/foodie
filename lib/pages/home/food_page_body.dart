@@ -195,57 +195,59 @@ class _FoodPageBodyState extends State<FoodPageBody> {
       matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, _height*(1-_scaleFactor)/2,0);
     }
     
-    return Transform(
-      transform: matrix,
-      child: Stack(
-        children: [
-          GestureDetector(
+    return  GestureDetector(
             onTap: () {
                Get.toNamed(RouteHelper.getPopularFood(index));
             },
-            child: Container(
-                    height:  Dimensions.pageViewContainer,
-                    margin: EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimensions.radius30),
-            color: index.isEven?Color(0xFF69c5df):Color(0xFF9294cc),
-            image: DecorationImage(
-            fit: BoxFit.fill,
-            image: NetworkImage("${AppConstants.BASE_URL}${AppConstants.UPLOAD_URL}${popularProduct.img!}"),
-            ),
-                    ),
-                  ),
-          ),
-       Align(
-        alignment: Alignment.bottomCenter,
-         child: Container(
-          height: Dimensions.pageViewTextContainer,
-          margin: EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width30, bottom: Dimensions.height30),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimensions.radius20),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(color: Color(0xFFe8e8e8),
-              blurRadius: 5.0,
-              offset: Offset(0, 5),
+          child: Transform(
+        transform: matrix,
+        child: Stack(
+          children: [
+           
+               Container(
+                      height:  Dimensions.pageViewContainer,
+                      margin: EdgeInsets.only(left: 10, right: 10),
+                      decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radius30),
+              color: index.isEven?Color(0xFF69c5df):Color(0xFF9294cc),
+              image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage("${AppConstants.BASE_URL}${AppConstants.UPLOAD_URL}${popularProduct.img!}"),
               ),
-              BoxShadow(
-                color: Colors.white,
-                offset: Offset(-5, 0),),
+                      ),
+                    ),
+            
+         Align(
+          alignment: Alignment.bottomCenter,
+           child: Container(
+            height: Dimensions.pageViewTextContainer,
+            margin: EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width30, bottom: Dimensions.height30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.radius20),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(color: Color(0xFFe8e8e8),
+                blurRadius: 5.0,
+                offset: Offset(0, 5),
+                ),
                 BoxShadow(
-                color: Colors.white,
-                offset: Offset(5, 0),),
-            ],
-            
-          ),
-          child: Container(
-            padding: EdgeInsets.only(top: Dimensions.height15, left: 15, right: 15),
-            child: AppColumn(text: popularProduct.name!),
-          ),
-            
-             ),
-       ),
-        ],
+                  color: Colors.white,
+                  offset: Offset(-5, 0),),
+                  BoxShadow(
+                  color: Colors.white,
+                  offset: Offset(5, 0),),
+              ],
+              
+            ),
+            child: Container(
+              padding: EdgeInsets.only(top: Dimensions.height15, left: 15, right: 15),
+              child: AppColumn(text: popularProduct.name!),
+            ),
+              
+               ),
+         ),
+          ],
+        ),
       ),
     );
   }
