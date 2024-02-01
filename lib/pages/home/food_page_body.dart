@@ -30,14 +30,18 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   void initState() {
     super.initState();
     pageController.addListener(() {
-     setState(() {
-        _currPageValue = pageController.page!;
-     });
+     // Check if the widget is mounted before calling setState
+     if (mounted) {
+       setState(() {
+          _currPageValue = pageController.page!;
+       });
+     }
     });
   }
   @override
   void dispose(){
     pageController.dispose();
+    super.dispose(); // Don't forget to call super.dispose() as well
   }
 
 

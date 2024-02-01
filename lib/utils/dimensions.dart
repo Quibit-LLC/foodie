@@ -48,4 +48,7 @@ class Dimensions{
   // positioned widget
   static double sizeSeven = screenHeight/130.7142857142857;
   static double sizeTwo = screenHeight/457.5;
+
+  // splash screen dimensions
+  static double splashImg = screenHeight/3.66;
 }
