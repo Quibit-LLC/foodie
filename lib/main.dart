@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:foodie/controllers/cart_controller.dart';
 import 'package:foodie/controllers/popular_product_controller.dart';
 import 'package:foodie/controllers/recommended_product_controller.dart';
-import 'package:foodie/pages/home/main_food_page.dart';
-import 'package:foodie/pages/splash/splash_screen.dart';
 import 'package:foodie/routes/route_helper.dart';
 import 'package:get/get.dart';
 import 'helper/dependencies.dart' as dep; 
@@ -18,7 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-  
+  Get.find<CartController>().getCartData();
  return GetBuilder<PopularProductController>(builder: (_){
     return GetBuilder<RecommendedProductController>(builder: (_){
         return GetMaterialApp(

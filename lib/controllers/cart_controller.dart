@@ -14,6 +14,9 @@ class CartController extends GetxController{
 
   Map<int, CartModel> get items=> _items;
 
+// only for storage and SharedPreferences
+  List<CartModel> storageItems = [];
+
   void addItem(ProductModel product, int quantity){
     var totalQuantity = 0;
     if(_items.containsKey(product.id!)){
@@ -55,8 +58,10 @@ class CartController extends GetxController{
       colorText: Colors.white,
       );
     }
+
   }
-  update();
+    cartRepo.addToCartList(getItems);
+     update();
   }
 
   bool existInCart(ProductModel product){
@@ -100,4 +105,18 @@ class CartController extends GetxController{
     });
     return total;
   }
+
+  List<CartModel> getCartData(){
+  
+  setCart = cartRepo.getCartList();
+  return storageItems;
+  }
+
+  set setCart(List<CartModel> items){
+    storageItems = items;
+
+    for(int i = 0; i<storageItems.length; i++){
+      _items.putIfAbsent(storageItems[i].product!.id!, () => storageItems[i]);
+    }
+  } 
 }
