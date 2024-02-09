@@ -53,7 +53,10 @@ class _MainFoodPageState extends State<MainFoodPage> {
     ),
     Expanded(
       child: SingleChildScrollView(
-        child: FoodPageBody()
+        child: MediaQuery.removePadding(
+          context: context,
+            removeTop: true,
+          child: FoodPageBody())
         ),
         ),
         ],

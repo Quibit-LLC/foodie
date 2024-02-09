@@ -177,7 +177,6 @@ class CartPage extends StatelessWidget {
               child: Row(
                 
                 children: [
-                 
                   SizedBox(width: Dimensions.width10/2,),
                   BigText(text: "\$ ${cartController.totalAmount}"),
                   SizedBox(width: Dimensions.width10/2,),
@@ -197,7 +196,11 @@ class CartPage extends StatelessWidget {
                   color: AppColors.mainColor,
                 ),
                
-                  child: BigText(text: " Check Out", color: Colors.white)
+                  child: GestureDetector(
+                    onTap: () {
+                      cartController.addToHistory();
+                    },
+                    child: BigText(text: " Check Out", color: Colors.white))
               ),
             ),
           ],
